@@ -2,6 +2,13 @@ import json
 import boto3
 import uuid
 from datetime import datetime
+from decimal import Decimal
+
+class DecimalEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Decimal):
+            return float(obj)
+        return super(DecimalEncoder, self).default(obj)
 
 dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 ses = boto3.client('ses', region_name='us-east-1')
@@ -9,7 +16,7 @@ sns = boto3.client('sns', region_name='us-east-1')
 
 def lambda_handler(event, context):
     http_method = event.get('requestContext', {}).get('http', {}).get('method', '')
-    path = event.get('rawPath', '')
+    path = event.get('rawPath', '').replace('/prod', '')
     
     if path == '/services' and http_method == 'GET':
         return get_services()
@@ -30,7 +37,7 @@ def get_services():
     return {
         'statusCode': 200,
         'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
-        'body': json.dumps(result['Items'])
+        'body': json.dumps(result['Items'], cls=DecimalEncoder)
     }
 
 def get_appointments():
@@ -39,7 +46,7 @@ def get_appointments():
     return {
         'statusCode': 200,
         'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
-        'body': json.dumps(result['Items'])
+        'body': json.dumps(result['Items'], cls=DecimalEncoder)
     }
 
 def create_appointment(body):
