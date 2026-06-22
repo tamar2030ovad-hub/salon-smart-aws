@@ -34,7 +34,8 @@ salon-smart/
 ├── index.html              - Frontend website
 ├── lambda_function.py      - Lambda function code
 ├── lambda.zip              - Deployment package
-└── architecture.svg        - AWS architecture diagram
+├── architecture.svg        - AWS architecture diagram
+└── screenshots/            - AWS Console screenshots
 ```
 
 ## Installation
@@ -84,6 +85,46 @@ aws s3 cp index.html s3://salon-smart-website-417441750937/ --region us-east-1
 5. An administrator logs in to the management panel — authenticates via Amazon Cognito and accesses the protected admin interface.
 6. An administrator views and filters appointments — browses all scheduled appointments and filters by date or status.
 7. An administrator cancels an appointment — removes a booking from the system via the management panel.
+
+## AWS Console Screenshots
+
+### Amazon DynamoDB
+
+![DynamoDB Tables](screenshots/dynamodb_1.png)
+![DynamoDB Table Items](screenshots/dynamodb_2.png)
+![DynamoDB Table Structure](screenshots/dynamodb_3.png)
+
+### AWS Lambda
+
+![Lambda Function](screenshots/lambda.png)
+
+### Amazon API Gateway
+
+![API Gateway Routes](screenshots/apigateway_1.png)
+![API Gateway Configuration](screenshots/apigateway_2.png)
+
+### AWS IAM
+
+![IAM Role](screenshots/iam.png)
+
+### Amazon S3
+
+![S3 Bucket](screenshots/s3.png)
+
+### Amazon CloudWatch
+
+![CloudWatch Logs](screenshots/cloudwatch_1.png)
+![CloudWatch Metrics](screenshots/cloudwatch_2.png)
+
+### Amazon Cognito
+
+![Cognito User Pool](screenshots/cognito_1.png)
+![Cognito App Client](screenshots/cognito_2.png)
+
+### Amazon SES
+
+![SES Verified Identity](screenshots/ses_1.png)
+![SES Account Dashboard](screenshots/ses_2.png)
 
 ## Project Details
 
