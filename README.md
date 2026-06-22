@@ -1,79 +1,122 @@
-# 💅 Salon Smart – AWS Edition
+# Salon Smart
 
-מערכת לניהול תורים לסטודיו ציפורניים, מבוססת על ארכיטקטורה Serverless מלאה ב-AWS.
+A serverless appointment booking system for a nail salon, built on AWS cloud infrastructure. The system allows clients to book, view, and cancel appointments independently, while providing administrators with a secure management panel to oversee and manage the schedule.
 
-## 🎯 תיאור הפרויקט
+## Architecture Overview
 
-Salon Smart היא מערכת אוטומטית המאפשרת ללקוחות לקבוע, לבטל ולנהל תורים באופן עצמאי 24/7, תוך שחרור בעלת העסק מניהול שוטף.
+The application follows a fully serverless architecture on AWS:
 
-## 🏗️ ארכיטקטורת AWS
+```
+Client → Amazon S3 (Static Website) → Amazon API Gateway → AWS Lambda → Amazon DynamoDB
+                                                                       → Amazon SES (confirmation email)
+Admin  → Amazon Cognito (Authentication) → API Gateway → Lambda → DynamoDB
+Lambda → Amazon CloudWatch (logs and monitoring)
+IAM    → Manages permissions for all services
+```
 
-לקוחה → S3 (UI) → API Gateway → Lambda → DynamoDB → SES / SNS / CloudWatch
+## AWS Services
 
-## ☁️ שירותי AWS בשימוש
+| Service | Role | Type |
+|---|---|---|
+| Amazon S3 | Static website hosting | Required |
+| API Gateway | REST API exposure | Required |
+| AWS Lambda | Business logic (Python 3.12) | Required |
+| Amazon DynamoDB | Database (Appointments, Clients, Services) | Required |
+| AWS IAM | Permissions management | Required |
+| Amazon Cognito | Admin authentication | Optional |
+| Amazon SES | Confirmation emails | Optional |
+| Amazon CloudWatch | Monitoring and logs | Optional |
 
-| שירות | תפקיד | סוג |
-|-------|--------|-----|
-| Amazon S3 | אחסון ממשק המשתמש הסטטי | חובה |
-| API Gateway | חשיפת REST API | חובה |
-| AWS Lambda | לוגיקה עסקית (Python 3.12) | חובה |
-| Amazon DynamoDB | בסיס נתונים (תורים, לקוחות, שירותים) | חובה |
-| AWS IAM | ניהול הרשאות | חובה |
-| Amazon SES | שליחת מיילי אישור | בחירה |
-| Amazon SNS | התראות למנהלת | בחירה |
-| Amazon CloudWatch | ניטור ולוגים | בחירה |
+## File Structure
 
-## 📁 מבנה הקבצים
+```
+salon-smart/
+├── index.html              - Frontend website
+├── lambda_function.py      - Lambda function code
+├── lambda.zip              - Deployment package
+└── architecture.svg        - AWS architecture diagram
+```
 
-index.html - ממשק המשתמש
-lambda_function.py - קוד ה-Lambda
-lambda.zip - קובץ הפריסה
+## Installation
 
-## 🚀 הוראות התקנה
+### Prerequisites
 
-### דרישות מקדימות
-- חשבון AWS
-- AWS CLI מותקן ומוגדר
-- Git מותקן
+- An active AWS account
+- AWS CLI installed and configured (`aws configure`)
+- Git installed
 
-### שלבי התקנה
+### Step 1 — Create DynamoDB Tables
 
-1. יצירת טבלאות DynamoDB:
-aws dynamodb create-table --table-name Appointments --attribute-definitions AttributeName=appointment_id,AttributeType=S --key-schema AttributeName=appointment_id,KeyType=HASH --billing-mode PAY_PER_REQUEST --region us-east-1
-aws dynamodb create-table --table-name Services --attribute-definitions AttributeName=service_id,AttributeType=S --key-schema AttributeName=service_id,KeyType=HASH --billing-mode PAY_PER_REQUEST --region us-east-1
-aws dynamodb create-table --table-name Clients --attribute-definitions AttributeName=client_phone,AttributeType=S --key-schema AttributeName=client_phone,KeyType=HASH --billing-mode PAY_PER_REQUEST --region us-east-1
+```bash
+aws dynamodb create-table \
+  --table-name Appointments \
+  --attribute-definitions AttributeName=appointment_id,AttributeType=S \
+  --key-schema AttributeName=appointment_id,KeyType=HASH \
+  --billing-mode PAY_PER_REQUEST \
+  --region us-east-1
 
-2. יצירת Lambda Role:
-aws iam create-role --role-name salon-smart-lambda-role --assume-role-policy-document ...
+aws dynamodb create-table \
+  --table-name Services \
+  --attribute-definitions AttributeName=service_id,AttributeType=S \
+  --key-schema AttributeName=service_id,KeyType=HASH \
+  --billing-mode PAY_PER_REQUEST \
+  --region us-east-1
 
-3. יצירת פונקציית Lambda:
-aws lambda create-function --function-name salon-smart-api --runtime python3.12 --role arn:aws:iam::417441750937:role/salon-smart-lambda-role --handler lambda_function.lambda_handler --zip-file fileb://lambda.zip --region us-east-1
+aws dynamodb create-table \
+  --table-name Clients \
+  --attribute-definitions AttributeName=client_phone,AttributeType=S \
+  --key-schema AttributeName=client_phone,KeyType=HASH \
+  --billing-mode PAY_PER_REQUEST \
+  --region us-east-1
+```
 
-4. יצירת API Gateway:
-aws apigatewayv2 create-api --name salon-smart-api --protocol-type HTTP --region us-east-1
+### Step 2 — Deploy the Lambda Function
 
-5. העלאת האתר ל-S3:
+```bash
+aws lambda create-function \
+  --function-name salon-smart-api \
+  --runtime python3.12 \
+  --role arn:aws:iam::417441750937:role/salon-smart-lambda-role \
+  --handler lambda_function.lambda_handler \
+  --zip-file fileb://lambda.zip \
+  --region us-east-1
+```
+
+### Step 3 — Create the API Gateway
+
+```bash
+aws apigatewayv2 create-api \
+  --name salon-smart-api \
+  --protocol-type HTTP \
+  --region us-east-1
+```
+
+### Step 4 — Upload the Website to S3
+
+```bash
 aws s3 cp index.html s3://salon-smart-website-417441750937/ --region us-east-1
+```
 
-## 🌐 כתובת האתר החי
+## Live Website
 
-http://salon-smart-website-417441750937.s3-website-us-east-1.amazonaws.com
+[http://salon-smart-website-417441750937.s3-website-us-east-1.amazonaws.com](http://salon-smart-website-417441750937.s3-website-us-east-1.amazonaws.com)
 
-## 📊 Use Cases
+## Use Cases
 
-1. לקוחה קובעת תור – בוחרת שירות, תאריך ושעה ומקבלת אישור
-2. לקוחה מבטלת תור – ביטול עצמאי עם אישור במייל
-3. לקוחה מקבלת מידע על שירותים – מחירים ומשך טיפולים
-4. מנהלת צופה בלוח תורים – דרך פאנל הניהול
-5. מנהלת מאשרת בקשה דחופה – התראת SNS על תורים קרובים
-6. שליחת אישור אוטומטי – מייל ללקוחה דרך SES
-7. ניטור המערכת – CloudWatch מתעד לוגים והתראות
+1. A client books an appointment — selects a service, date, and time, and receives a confirmation email via SES.
+2. A client cancels an appointment — cancels independently through the website; the system updates DynamoDB and sends a confirmation.
+3. A client views available services — retrieves the full list of services, including prices and durations, from DynamoDB.
+4. A client views their existing appointment — queries the system for current booking details.
+5. An administrator logs in to the management panel — authenticates via Amazon Cognito and accesses the protected admin interface on the S3 website.
+6. An administrator views and filters appointments — browses all scheduled appointments and filters by date or status.
+7. An administrator cancels an appointment — removes a booking from the system via the management panel, authorized through the Cognito JWT token.
 
-## 👩‍💻 פרטי הפרויקט
+## Project Details
 
-- **שם:** Salon Smart – AWS Edition
-- **קורס:** ניהול מערכות ענן (AWS)
-- **מרצה:** אורי ברמן
-- **מוסד:** מכללת עזריאלי ירושלים
-- **שנה:** תשפ"ו
-- **פותח על ידי:** תמר
+| Field | Value |
+|---|---|
+| Course | Cloud Systems Management (AWS) |
+| Lecturer | Uri Berman |
+| Institution | Azrieli College of Engineering, Jerusalem |
+| Year | 2026 |
+| Developer | Tamar |
