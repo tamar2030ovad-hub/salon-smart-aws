@@ -1,0 +1,244 @@
+<svg viewBox="0 0 1100 680" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif">
+  <title>Salon Smart AWS Architecture</title>
+
+  <!-- Background -->
+  <rect width="1100" height="680" fill="#f0f4f8" rx="12"/>
+  <text x="550" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a2332">Salon Smart - AWS Architecture</text>
+  <text x="550" y="54" text-anchor="middle" font-size="11" fill="#6b7a90">Appointment Booking System for Nail Salon</text>
+
+  <!-- Client column -->
+  <rect x="16" y="66" width="120" height="600" rx="8" fill="#e8f0fb" stroke="#b8cef0" stroke-width="1"/>
+  <text x="76" y="84" text-anchor="middle" font-size="10" font-weight="600" fill="#3a5a9a">Client</text>
+
+  <!-- AWS Cloud column -->
+  <rect x="148" y="66" width="936" height="600" rx="8" fill="#fafbfc" stroke="#d0d7e3" stroke-width="1"/>
+  <text x="616" y="84" text-anchor="middle" font-size="10" font-weight="600" fill="#555e6d">AWS Cloud (us-east-1)</text>
+
+  <!-- ===================== DEFS ===================== -->
+  <defs>
+    <marker id="a1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#4a90d9"/></marker>
+    <marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#555e6d"/></marker>
+    <marker id="a3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#8a2be2"/></marker>
+    <marker id="a4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#1976d2"/></marker>
+    <marker id="a5" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#d32f2f"/></marker>
+    <marker id="a6" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#e91e63"/></marker>
+    <marker id="a7" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#f44336"/></marker>
+    <marker id="a-cog" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#8e24aa"/></marker>
+    <marker id="a-adm" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#1565c0"/></marker>
+  </defs>
+
+  <!-- ===================== TOP ROW: Regular user flow (y=98) ===================== -->
+
+  <!-- User / Browser -->
+  <g transform="translate(26,98)">
+    <rect width="100" height="82" rx="8" fill="#ffffff" stroke="#b8cef0" stroke-width="1.5"/>
+    <circle cx="50" cy="24" r="13" fill="#4a90d9"/>
+    <path d="M24 64 Q24 46 50 46 Q76 46 76 64" fill="#4a90d9"/>
+    <text x="50" y="77" text-anchor="middle" font-size="9.5" fill="#1a2332" font-weight="600">User / Browser</text>
+  </g>
+
+  <!-- Amazon S3 -->
+  <g transform="translate(170,98)">
+    <rect width="118" height="82" rx="8" fill="#ffffff" stroke="#d0d7e3" stroke-width="1.5"/>
+    <ellipse cx="59" cy="24" rx="30" ry="10" fill="#3f8624"/>
+    <rect x="29" y="24" width="60" height="26" fill="#4caf50"/>
+    <ellipse cx="59" cy="50" rx="30" ry="10" fill="#388e3c"/>
+    <text x="59" y="66" text-anchor="middle" font-size="9" fill="#2e7d32" font-weight="700">Amazon S3</text>
+    <text x="59" y="77" text-anchor="middle" font-size="8" fill="#555">Static Website</text>
+  </g>
+
+  <!-- API Gateway -->
+  <g transform="translate(332,98)">
+    <rect width="130" height="82" rx="8" fill="#ffffff" stroke="#d0d7e3" stroke-width="1.5"/>
+    <circle cx="65" cy="28" r="20" fill="#8a2be2"/>
+    <line x1="50" y1="21" x2="80" y2="21" stroke="white" stroke-width="2"/>
+    <line x1="50" y1="28" x2="80" y2="28" stroke="white" stroke-width="2"/>
+    <line x1="50" y1="35" x2="80" y2="35" stroke="white" stroke-width="2"/>
+    <text x="65" y="60" text-anchor="middle" font-size="9" fill="#6a1fa0" font-weight="700">API Gateway</text>
+    <text x="65" y="71" text-anchor="middle" font-size="7.5" fill="#555">4 Routes (HTTP)</text>
+    <text x="65" y="80" text-anchor="middle" font-size="7" fill="#888">HTTP API v2</text>
+  </g>
+
+  <!-- AWS Lambda -->
+  <g transform="translate(506,98)">
+    <rect width="120" height="82" rx="8" fill="#ffffff" stroke="#d0d7e3" stroke-width="1.5"/>
+    <rect x="20" y="8" width="80" height="46" rx="6" fill="#ff9800"/>
+    <text x="60" y="38" text-anchor="middle" font-size="26" font-weight="900" fill="white">λ</text>
+    <text x="60" y="63" text-anchor="middle" font-size="9" fill="#e65100" font-weight="700">AWS Lambda</text>
+    <text x="60" y="73" text-anchor="middle" font-size="7.5" fill="#555">Python 3.12</text>
+    <text x="60" y="82" text-anchor="middle" font-size="7" fill="#888">salon-smart-api</text>
+  </g>
+
+  <!-- DynamoDB -->
+  <g transform="translate(772,93)">
+    <rect width="130" height="112" rx="8" fill="#ffffff" stroke="#d0d7e3" stroke-width="1.5"/>
+    <ellipse cx="65" cy="26" rx="30" ry="10" fill="#1565c0"/>
+    <rect x="35" y="26" width="60" height="28" fill="#1976d2"/>
+    <ellipse cx="65" cy="54" rx="30" ry="10" fill="#1565c0"/>
+    <text x="65" y="72" text-anchor="middle" font-size="9" fill="#0d47a1" font-weight="700">DynamoDB</text>
+    <text x="65" y="84" text-anchor="middle" font-size="7.5" fill="#555">Services</text>
+    <text x="65" y="95" text-anchor="middle" font-size="7.5" fill="#555">Appointments</text>
+    <text x="65" y="106" text-anchor="middle" font-size="7.5" fill="#555">Clients</text>
+  </g>
+
+  <!-- ===================== TOP ROW ARROWS ===================== -->
+
+  <!-- User → S3 -->
+  <line x1="126" y1="139" x2="170" y2="139" stroke="#4a90d9" stroke-width="2" marker-end="url(#a1)"/>
+
+  <!-- S3 → API Gateway -->
+  <line x1="288" y1="139" x2="332" y2="139" stroke="#555e6d" stroke-width="2" marker-end="url(#a2)"/>
+  <rect x="295" y="129" width="30" height="11" fill="#f0f0f0" rx="2"/>
+  <text x="310" y="138" text-anchor="middle" font-size="7" fill="#555">API calls</text>
+
+  <!-- API Gateway → Lambda -->
+  <line x1="462" y1="139" x2="506" y2="139" stroke="#8a2be2" stroke-width="2" marker-end="url(#a3)"/>
+  <rect x="468" y="129" width="30" height="11" fill="#f3e8ff" rx="2"/>
+  <text x="483" y="138" text-anchor="middle" font-size="7" fill="#6a1fa0">invoke</text>
+
+  <!-- Lambda → DynamoDB -->
+  <line x1="626" y1="139" x2="772" y2="139" stroke="#1976d2" stroke-width="2" marker-end="url(#a4)"/>
+  <rect x="668" y="129" width="46" height="11" fill="#e3f2fd" rx="2"/>
+  <text x="691" y="138" text-anchor="middle" font-size="7" fill="#1565c0">read/write</text>
+
+  <!-- Lambda → SES (curved right then down) -->
+  <path d="M626 158 Q718 158 718 275 L772 275" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#a5)"/>
+  <rect x="666" y="192" width="28" height="11" fill="#fce4e4" rx="2"/>
+  <text x="680" y="201" text-anchor="middle" font-size="7" fill="#d32f2f">email</text>
+
+  <!-- Lambda → CloudWatch (down then right) -->
+  <path d="M556 180 L556 393 L772 393" fill="none" stroke="#e91e63" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#a6)"/>
+  <rect x="560" y="345" width="26" height="11" fill="#fce4fc" rx="2"/>
+  <text x="573" y="354" text-anchor="middle" font-size="7" fill="#880e4f">logs</text>
+
+  <!-- IAM → Lambda (dashed, from left side of IAM up to Lambda) -->
+  <path d="M772 483 Q735 483 735 200 L626 170" fill="none" stroke="#f44336" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#a7)"/>
+  <rect x="726" y="308" width="54" height="11" fill="#fdecea" rx="2"/>
+  <text x="753" y="317" text-anchor="middle" font-size="7" fill="#c62828">permissions</text>
+
+  <!-- ===================== API ROUTES TABLE (y=218) ===================== -->
+  <rect x="170" y="218" width="570" height="136" rx="8" fill="#ffffff" stroke="#d0d7e3" stroke-width="1"/>
+  <text x="455" y="236" text-anchor="middle" font-size="10" font-weight="700" fill="#333">API Routes</text>
+  <rect x="180" y="242" width="550" height="20" rx="3" fill="#f0f7f0"/>
+  <text x="192" y="256" font-size="9" fill="#2e7d32" font-weight="600">GET</text>
+  <text x="228" y="256" font-size="9" fill="#333">/services</text>
+  <text x="720" y="256" text-anchor="end" font-size="8" fill="#555">Returns all services from DynamoDB</text>
+  <rect x="180" y="264" width="550" height="20" rx="3" fill="#fff8e1"/>
+  <text x="192" y="278" font-size="9" fill="#f57c00" font-weight="600">POST</text>
+  <text x="232" y="278" font-size="9" fill="#333">/appointments</text>
+  <text x="720" y="278" text-anchor="end" font-size="8" fill="#555">Save appointment + send email via SES</text>
+  <rect x="180" y="286" width="550" height="20" rx="3" fill="#f0f7f0"/>
+  <text x="192" y="300" font-size="9" fill="#2e7d32" font-weight="600">GET</text>
+  <text x="228" y="300" font-size="9" fill="#333">/appointments</text>
+  <text x="720" y="300" text-anchor="end" font-size="8" fill="#555">Returns all appointments from DynamoDB</text>
+  <rect x="180" y="308" width="550" height="20" rx="3" fill="#fce4e4"/>
+  <text x="192" y="322" font-size="9" fill="#c62828" font-weight="600">DELETE</text>
+  <text x="240" y="322" font-size="9" fill="#333">/appointments/{id}</text>
+  <text x="720" y="322" text-anchor="end" font-size="8" fill="#555">Cancel appointment in DynamoDB</text>
+
+  <!-- ===================== RIGHT COLUMN SERVICES ===================== -->
+
+  <!-- SES -->
+  <g transform="translate(772,232)">
+    <rect width="130" height="90" rx="8" fill="#ffffff" stroke="#d0d7e3" stroke-width="1.5"/>
+    <rect x="18" y="10" width="94" height="54" rx="4" fill="#d32f2f"/>
+    <polyline points="18,10 65,42 112,10" fill="none" stroke="white" stroke-width="2.5"/>
+    <line x1="18" y1="64" x2="44" y2="44" stroke="white" stroke-width="1.5"/>
+    <line x1="112" y1="64" x2="86" y2="44" stroke="white" stroke-width="1.5"/>
+    <text x="65" y="76" text-anchor="middle" font-size="9" fill="#b71c1c" font-weight="700">Amazon SES</text>
+    <text x="65" y="87" text-anchor="middle" font-size="7.5" fill="#555">Confirmation Email</text>
+  </g>
+
+  <!-- CloudWatch -->
+  <g transform="translate(772,348)">
+    <rect width="130" height="90" rx="8" fill="#ffffff" stroke="#d0d7e3" stroke-width="1.5"/>
+    <circle cx="65" cy="30" r="22" fill="#e91e63"/>
+    <circle cx="65" cy="30" r="11" fill="white"/>
+    <circle cx="65" cy="30" r="4" fill="#e91e63"/>
+    <text x="65" y="62" text-anchor="middle" font-size="9" fill="#880e4f" font-weight="700">CloudWatch</text>
+    <text x="65" y="74" text-anchor="middle" font-size="7.5" fill="#555">Logs and Metrics</text>
+    <text x="65" y="84" text-anchor="middle" font-size="7.5" fill="#555">Error Alerts</text>
+  </g>
+
+  <!-- IAM -->
+  <g transform="translate(772,462)">
+    <rect width="130" height="90" rx="8" fill="#ffffff" stroke="#d0d7e3" stroke-width="1.5"/>
+    <path d="M65 10 L96 26 L96 50 Q96 68 65 78 Q34 68 34 50 L34 26 Z" fill="#f44336"/>
+    <text x="65" y="50" text-anchor="middle" font-size="14" fill="white" font-weight="900">IAM</text>
+    <text x="65" y="76" text-anchor="middle" font-size="9" fill="#c62828" font-weight="700">AWS IAM</text>
+    <text x="65" y="86" text-anchor="middle" font-size="7.5" fill="#555">Lambda Role</text>
+  </g>
+
+  <!-- ===================== LEGEND (y=378) ===================== -->
+  <rect x="170" y="378" width="570" height="50" rx="8" fill="#ffffff" stroke="#d0d7e3" stroke-width="1"/>
+  <line x1="184" y1="400" x2="218" y2="400" stroke="#555" stroke-width="2" marker-end="url(#a2)"/>
+  <text x="224" y="404" font-size="8" fill="#333">Data flow</text>
+  <line x1="298" y1="400" x2="332" y2="400" stroke="#555" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#a2)"/>
+  <text x="338" y="404" font-size="8" fill="#333">Logs / Permissions</text>
+  <line x1="184" y1="418" x2="218" y2="418" stroke="#8e24aa" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#a-cog)"/>
+  <text x="224" y="422" font-size="8" fill="#333">Admin / Cognito flow</text>
+  <rect x="440" y="393" width="12" height="12" rx="2" fill="#4caf50"/>
+  <text x="456" y="403" font-size="8" fill="#333">Storage</text>
+  <rect x="500" y="393" width="12" height="12" rx="2" fill="#ff9800"/>
+  <text x="516" y="403" font-size="8" fill="#333">Compute</text>
+  <rect x="560" y="393" width="12" height="12" rx="2" fill="#8a2be2"/>
+  <text x="576" y="403" font-size="8" fill="#333">Gateway</text>
+
+  <!-- ===================== SEPARATOR ===================== -->
+  <line x1="16" y1="444" x2="1084" y2="444" stroke="#c8d6f0" stroke-width="1.5" stroke-dasharray="8,5"/>
+  <rect x="148" y="436" width="228" height="16" rx="4" fill="#e8f0fb" stroke="#b8cef0" stroke-width="1"/>
+  <text x="262" y="447" text-anchor="middle" font-size="8.5" font-weight="600" fill="#3a5a9a">Admin Flow — Cognito Authentication</text>
+
+  <!-- ===================== ADMIN ROW (y=462) ===================== -->
+
+  <!-- Admin User -->
+  <g transform="translate(26,462)">
+    <rect width="100" height="92" rx="8" fill="#ffffff" stroke="#1565c0" stroke-width="2"/>
+    <circle cx="50" cy="26" r="14" fill="#1565c0"/>
+    <path d="M24 72 Q24 52 50 52 Q76 52 76 72" fill="#1565c0"/>
+    <text x="50" y="86" text-anchor="middle" font-size="9" fill="#0d47a1" font-weight="700">Admin User</text>
+  </g>
+
+  <!-- Amazon Cognito -->
+  <g transform="translate(170,462)">
+    <rect width="132" height="92" rx="8" fill="#ffffff" stroke="#8e24aa" stroke-width="2"/>
+    <rect width="132" height="28" rx="8" fill="#8e24aa"/>
+    <rect y="16" width="132" height="12" fill="#8e24aa"/>
+    <text x="66" y="20" text-anchor="middle" font-size="9" font-weight="700" fill="white">Amazon Cognito</text>
+    <rect x="46" y="34" width="40" height="28" rx="5" fill="#f3e5f5" stroke="#8e24aa" stroke-width="1.5"/>
+    <path d="M53 34 Q53 24 66 24 Q79 24 79 34" fill="none" stroke="#8e24aa" stroke-width="2"/>
+    <circle cx="66" cy="48" r="4" fill="#8e24aa"/>
+    <text x="66" y="74" text-anchor="middle" font-size="8" fill="#6a1b9a" font-weight="600">User Pool:</text>
+    <text x="66" y="85" text-anchor="middle" font-size="7.5" fill="#555">salon-smart-pool</text>
+  </g>
+
+  <!-- Admin Panel description -->
+  <g transform="translate(346,459)">
+    <rect width="418" height="100" rx="8" fill="#fdf3ff" stroke="#8e24aa" stroke-width="1.5" stroke-dasharray="5,3"/>
+    <text x="209" y="18" text-anchor="middle" font-size="9.5" font-weight="700" fill="#6a1b9a">Admin Management Panel (S3)</text>
+    <rect x="10" y="24" width="398" height="20" rx="3" fill="#f3e5f5"/>
+    <text x="209" y="37" text-anchor="middle" font-size="8.5" fill="#4a148c">1. Admin logs in via Cognito — receives JWT token</text>
+    <rect x="10" y="46" width="398" height="20" rx="3" fill="#f3e5f5"/>
+    <text x="209" y="59" text-anchor="middle" font-size="8.5" fill="#4a148c">2. JWT token used to authorize calls to API Gateway</text>
+    <rect x="10" y="68" width="398" height="20" rx="3" fill="#f3e5f5"/>
+    <text x="209" y="81" text-anchor="middle" font-size="8.5" fill="#4a148c">3. Admin views, filters, and cancels appointments</text>
+    <text x="209" y="96" text-anchor="middle" font-size="7.5" fill="#888">App Client: salon-smart-client</text>
+  </g>
+
+  <!-- ===================== ADMIN ARROWS ===================== -->
+
+  <!-- Admin → Cognito -->
+  <line x1="126" y1="508" x2="170" y2="508" stroke="#1565c0" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#a-adm)"/>
+  <rect x="132" y="496" width="30" height="12" fill="#ddeeff" rx="2"/>
+  <text x="147" y="505" text-anchor="middle" font-size="7.5" fill="#1565c0">login</text>
+
+  <!-- Cognito → Admin Panel -->
+  <line x1="302" y1="508" x2="346" y2="508" stroke="#8e24aa" stroke-width="2" marker-end="url(#a-cog)"/>
+  <rect x="310" y="496" width="26" height="12" fill="#f3e5f5" rx="2"/>
+  <text x="323" y="505" text-anchor="middle" font-size="7.5" fill="#8e24aa">JWT</text>
+
+  <!-- Admin Panel → API Gateway (curved up) -->
+  <path d="M764 490 Q764 444 660 444 Q397 444 397 182" fill="none" stroke="#8e24aa" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#a-cog)"/>
+  <rect x="644" y="435" width="72" height="12" fill="#f3e5f5" rx="2"/>
+  <text x="680" y="444" text-anchor="middle" font-size="7.5" fill="#8e24aa">API + JWT Auth</text>
+</svg>
