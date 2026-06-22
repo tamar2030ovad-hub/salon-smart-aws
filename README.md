@@ -119,4 +119,4 @@ aws s3 cp index.html s3://salon-smart-website-417441750937/ --region us-east-1
 | Lecturer | Uri Berman |
 | Institution | Azrieli College of Engineering, Jerusalem |
 | Year | 2026 |
-| Developer | Tamar |
+| Developers | Tamar | Eden | Nissa | Meytar |
