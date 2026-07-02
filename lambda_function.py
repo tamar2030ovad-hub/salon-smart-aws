@@ -49,12 +49,40 @@ def get_appointments():
         'body': json.dumps(result['Items'], cls=DecimalEncoder)
     }
 
+SENDER_EMAIL = 'tamar2030ovad@gmail.com'
+
+def send_confirmation_email(recipient_email, client_name, service_name, date, time):
+    try:
+        ses.send_email(
+            Source=SENDER_EMAIL,
+            Destination={'ToAddresses': [recipient_email]},
+            Message={
+                'Subject': {'Data': 'אישור תור - Salon Smart', 'Charset': 'UTF-8'},
+                'Body': {
+                    'Text': {
+                        'Data': (
+                            f'שלום {client_name},\n\n'
+                            f'תורך נקבע בהצלחה!\n\n'
+                            f'פרטי התור:\n'
+                            f'שירות: {service_name}\n'
+                            f'תאריך: {date}\n'
+                            f'שעה: {time}\n\n'
+                            f'תודה שבחרת ב-Salon Smart!'
+                        ),
+                        'Charset': 'UTF-8'
+                    }
+                }
+            }
+        )
+    except Exception as e:
+        print(f'SES send failed for {recipient_email}: {str(e)}')
+
 def create_appointment(body):
     table = dynamodb.Table('Appointments')
     clients_table = dynamodb.Table('Clients')
-    
+
     appointment_id = str(uuid.uuid4())
-    
+
     item = {
         'appointment_id': appointment_id,
         'client_name': body.get('client_name'),
@@ -66,15 +94,24 @@ def create_appointment(body):
         'status': 'active',
         'created_at': datetime.now().isoformat()
     }
-    
+
     table.put_item(Item=item)
-    
+
     clients_table.put_item(Item={
         'client_phone': body.get('client_phone'),
         'name': body.get('client_name'),
         'email': body.get('email')
     })
-    
+
+    if body.get('email'):
+        send_confirmation_email(
+            recipient_email=body.get('email'),
+            client_name=body.get('client_name', ''),
+            service_name=body.get('service_name', ''),
+            date=body.get('date', ''),
+            time=body.get('time', '')
+        )
+
     return {
         'statusCode': 200,
         'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
